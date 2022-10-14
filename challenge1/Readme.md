@@ -24,3 +24,9 @@ _Line:_ `require(balanceAfter >= balanceBefore, "Flash loan hasn't been paid bac
 The require is checking for `>=` which means you can return more tokens than you borrow. This combined with the line `assert(poolBalance == balanceBefore);`, breaks the contract if you return more tokens that you initially borrowed. The `balanceBefore` is the token balance of the pool contract. If you return more tokens than borrowed, it makes the state variable `poolBalance` less than the actual balance of the pool contract.
 
 To resolve this vulnerability, the require can be changed to `require(balanceAfter = balanceBefore, "Flash loan hasn't been paid back");`.
+
+Note: The actual problem is having a dangerous assert in the code. You can break this assert by transferring any amount of token to the pool address.
+
+Things I learned:
+
+-   I learned that nonReentrant applies to the whole contract and just not functions in a contract.
