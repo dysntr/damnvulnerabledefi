@@ -13,7 +13,7 @@ Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from th
 
 The `calculateDepositRequired(uint256 amount)` calculates the amount of eth you need to pay for borrowing an amount of token.
 
-This function uses the following calculation to figure out the collateral ratio:
+This function basically uses the following calculation to figure out the collateral ratio:
 
 `(amount * ((uniswapPair.balance * (10**18)) / token.balanceOf(uniswapPair))) * 2) / 10**18;`
 
@@ -31,7 +31,7 @@ await uniswapExchange.tokenToEthSwapInput(
 )
 ```
 
-This changes the collateral ratio and allows you to borrow 100000 tokens for 19 eth. Now you borrow all the tokens from the PuppetPool.
+This changes the collateral ratio and allows you to borrow 100000 tokens for ~19 eth. You can borrow all the tokens from the PuppetPool with about ~19eth.
 
 ```js
 await lendingPool.borrow(ethers.utils.parseEther("100000"), {

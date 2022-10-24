@@ -142,17 +142,17 @@ describe("[Challenge] Puppet", function () {
             (await ethers.provider.getBlock("latest")).timestamp * 2
         )
 
+        console.log(
+            "\t After Attack: lendingPool.calculateDepositRequired(100000):",
+            (await lendingPool.calculateDepositRequired(100000)).toString()
+        )
+
         await lendingPool.borrow(ethers.utils.parseEther("100000"), {
             value: ethers.utils.parseEther(
                 (await lendingPool.calculateDepositRequired(110000)).toString()
             ),
             gasLimit: 1e6,
         })
-
-        console.log(
-            "\t After Attack: lendingPool.calculateDepositRequired(100000):",
-            (await lendingPool.calculateDepositRequired(100000)).toString()
-        )
 
         console.log(
             "\t After Attack: lendingPool's balance:",
