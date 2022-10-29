@@ -13,13 +13,13 @@ Your goal is to take all funds from the registry. In a single transaction.
 
 # Solution
 
-The vulnerability in this challenge is in the `FreeRiderNFTMarketplace.sol`. Specifically in the `_buyOne()`:
+Gnosis Safe Proxy allows installations of modules during the setup. In this challenge the gnosis safe proxy was not setup/claimed by the users. This allows an attacker to setup a backdoor through installing a malicious module. The `exploit.sol` contract calls the setup for the gnosis safe proxy for each of the users. It requests gnosis safe to install the malicious module (backdooring the gnosis safe for each user). It then uses the backdoor to take ownership of the gnosis safe (not needed to solve this challenge), and steal the tokens (solving the challenge).
 
-```solidity
-        token.safeTransferFrom(token.ownerOf(tokenId), msg.sender, tokenId);
+The contract `ControllerModule.sol` is the malicious module.
 
-        // pay seller
-        payable(token.ownerOf(tokenId)).sendValue(priceToPay);
-```
+# Credits
 
-In this function, the function first transfers the NFT to the buyer, and then sends the token to the token owner (which is also the buyer). These two statements needs to be reversed to resolve the vulnerability.
+-   silent_mastodon#1304 - for his mad skillz, ideas and insight.
+-   https://gist.github.com/tinchoabbate/4b8be18615c4f4a4049280c014327652
+-   https://ventral.digital/posts/2022/6/28/damn-vulnerable-defi-v2-11-backdoor
+-   https://zuhaibmd.medium.com/damn-vulnerable-defi-challenge-11-backdoor-33cac87c37b8
