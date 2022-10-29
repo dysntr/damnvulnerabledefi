@@ -8,8 +8,8 @@ Currently there are four people registered as beneficiaries: Alice, Bob, Charlie
 
 Your goal is to take all funds from the registry. In a single transaction.
 
-    [See the contracts](https://github.com/tinchoabbate/damn-vulnerable-defi/tree/v2.2.0/contracts/backdoor)
-    [Complete the challenge](https://github.com/tinchoabbate/damn-vulnerable-defi/blob/v2.2.0/test/backdoor/backdoor.challenge.js)
+-   [See the contracts](https://github.com/tinchoabbate/damn-vulnerable-defi/tree/v2.2.0/contracts/backdoor)
+-   [Complete the challenge](https://github.com/tinchoabbate/damn-vulnerable-defi/blob/v2.2.0/test/backdoor/backdoor.challenge.js)
 
 # Solution
 
