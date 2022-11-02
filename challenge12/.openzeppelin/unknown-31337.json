@@ -8,14 +8,14 @@
     },
     {
       "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-      "txHash": "0xbd131756943579e820a2b256a6b2bdc2d5ede366a7d498840ab66fe7d856139f",
+      "txHash": "0xd1144d734eb8b43c1d7bc77e7c813e73cac9e6023b1cb6722ff7206e2c5a6bdb",
       "kind": "uups"
     }
   ],
   "impls": {
-    "e18519714088ce9a463e6f6a60384bfa4af7863338e73d4bb3ef0653e2380b5c": {
+    "306a43c1a9d465fe224e9f4093fdef68ff4cecf7cea37428dfb4c8a310bb0707": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0x48a3f6ef19a601db5295f8d90cf8860cbd77c67c9540fdb082abd13f29c70768",
+      "txHash": "0x94f7d856e81d0bdb969d89f940acd1c94ec757d874ca0a6e8e23c3a68020536e",
       "layout": {
         "solcVersion": "0.8.8",
         "storage": [
@@ -74,7 +74,7 @@
             "slot": "151",
             "type": "t_array(t_uint256)50_storage",
             "contract": "UUPSUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:109"
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:108"
           },
           {
             "label": "_lastWithdrawalTimestamp",
@@ -82,7 +82,7 @@
             "slot": "201",
             "type": "t_uint256",
             "contract": "ClimberVault",
-            "src": "contracts/ClimberVault.sol:20"
+            "src": "contracts/ClimberVault.sol:19"
           },
           {
             "label": "_sweeper",
@@ -90,7 +90,7 @@
             "slot": "202",
             "type": "t_address",
             "contract": "ClimberVault",
-            "src": "contracts/ClimberVault.sol:21"
+            "src": "contracts/ClimberVault.sol:20"
           }
         ],
         "types": {

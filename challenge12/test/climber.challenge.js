@@ -71,6 +71,7 @@ describe("[Challenge] Climber", function () {
         )
 
         const log = async () => {
+            console.log("\t ===================================================")
             console.log("\t deployer address:", deployer.address)
             console.log("\t proposer address:", proposer.address)
             console.log("\t sweeper address:", sweeper.address)
@@ -83,14 +84,12 @@ describe("[Challenge] Climber", function () {
         }
 
         await log()
-        await exploit.exploit()
-        console.log("\t value getsweeper():", (await vault.getSweeper()).toString())
-        console.log(
-            "\t value getLastWithdrawalTimestamp():",
-            (await vault.getLastWithdrawalTimestamp()).toString()
-        )
 
-        //updateDelay(uint64)
+        console.log("\t Attacking!!!")
+
+        await exploit.exploit()
+
+        await log()
     })
 
     after(async function () {

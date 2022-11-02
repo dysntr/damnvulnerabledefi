@@ -6,7 +6,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./ClimberTimelock.sol";
-import "hardhat/console.sol";
 
 /**
  * @title ClimberVault
@@ -43,9 +42,6 @@ contract ClimberVault2 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         _setSweeper(sweeper);
         _setLastWithdrawal(block.timestamp);
         _lastWithdrawalTimestamp = block.timestamp;
-
-        console.log("_lastWithdrawalTimestamp", _lastWithdrawalTimestamp);
-        console.log("_sweeper", _sweeper);
     }
 
     // Allows the owner to send a limited amount of tokens to a recipient every now and then
@@ -54,7 +50,6 @@ contract ClimberVault2 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         address recipient,
         uint256 amount
     ) external onlyOwner {
-        console.log("withdraw()");
         require(amount <= WITHDRAWAL_LIMIT, "Withdrawing too much");
         require(block.timestamp > _lastWithdrawalTimestamp + WAITING_PERIOD, "Try later");
 
@@ -79,7 +74,6 @@ contract ClimberVault2 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     function _setSweeper(address newSweeper) internal {
-        console.log("setsweerp()");
         _sweeper = newSweeper;
     }
 
