@@ -14,3 +14,5 @@ Your goal is to empty the vault.
 -   [Complete the challenge](https://github.com/tinchoabbate/damn-vulnerable-defi/blob/v2.2.0/test/climber/climber.challenge.jss)
 
 # Solution
+
+Solution is provided in `Exploit.sol`.

